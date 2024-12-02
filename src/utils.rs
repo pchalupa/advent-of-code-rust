@@ -12,9 +12,8 @@ pub fn read_input_as_buffer(day: u8, test: bool) -> BufReader<File> {
     };
     let path = Path::new(&file_name);
     let file = File::open(path).expect("Failed to open the file!");
-    let reader = io::BufReader::new(file);
 
-    return reader;
+    io::BufReader::new(file)
 }
 
 pub fn print_result(task_1: u32, task_2: u32) {

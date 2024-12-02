@@ -1,11 +1,9 @@
+use crate::utils::{print_result, read_input_as_buffer};
+use regex::Regex;
 use std::{
     fs::File,
     io::{BufRead, BufReader},
 };
-
-use regex::Regex;
-
-use crate::utils::{print_result, read_input_as_buffer};
 
 pub fn main() {
     let reader = read_input_as_buffer(1, false);
@@ -22,8 +20,8 @@ fn preprocess(reader: BufReader<File>) -> (Vec<u32>, Vec<u32>) {
     let mut right_list: Vec<u32> = Vec::new();
 
     for line in reader.lines() {
-        let foo = line.expect("Unable to read a line");
-        let captures = pattern.captures(&foo).expect("Regex not matched");
+        let line = line.expect("Unable to read a line");
+        let captures = pattern.captures(&line).expect("Regex not matched");
 
         let left_value: u32 = captures
             .get(1)
@@ -45,10 +43,10 @@ fn preprocess(reader: BufReader<File>) -> (Vec<u32>, Vec<u32>) {
     left_list.sort();
     right_list.sort();
 
-    return (left_list, right_list);
+    (left_list, right_list)
 }
 
-fn task_1(left_list: &Vec<u32>, right_list: &Vec<u32>) -> u32 {
+fn task_1(left_list: &[u32], right_list: &[u32]) -> u32 {
     let mut result: u32 = 0;
     let mut i = 0;
 
@@ -61,10 +59,10 @@ fn task_1(left_list: &Vec<u32>, right_list: &Vec<u32>) -> u32 {
         i += 1;
     }
 
-    return result;
+    result
 }
 
-fn task_2(left_list: &Vec<u32>, right_list: &Vec<u32>) -> u32 {
+fn task_2(left_list: &[u32], right_list: &[u32]) -> u32 {
     let mut result: u32 = 0;
 
     for &value in left_list {
@@ -78,7 +76,7 @@ fn task_2(left_list: &Vec<u32>, right_list: &Vec<u32>) -> u32 {
         result += value * count
     }
 
-    return result;
+    result
 }
 
 #[cfg(test)]
