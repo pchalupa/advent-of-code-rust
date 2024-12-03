@@ -84,8 +84,9 @@ fn task_2(lines: Lines<BufReader<File>>) -> u32 {
         let mut is_safe = true;
         let mut is_partially_safe = true;
         let mut order: Order = Order::Eq;
+        let mut passes: u8 = 0;
 
-        for _pass in 0..1 {
+        while passes < 2 {
             for index in 0..values.len() {
                 let number = values.get(index).expect("Unable to get number");
                 let next_number = if index < (values.len() - 1) {
@@ -114,6 +115,7 @@ fn task_2(lines: Lines<BufReader<File>>) -> u32 {
                     break;
                 }
             }
+            passes += 1;
         }
 
         if is_safe || is_partially_safe {
